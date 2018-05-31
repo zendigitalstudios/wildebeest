@@ -32,4 +32,9 @@ public class Util
 
 		return uri.substring(index + 1);
 	}
+
+	public static String coalesceWhiteSpaces(String text){
+		return text.replaceAll("\\s+", " ").trim();
+	}
 }
+

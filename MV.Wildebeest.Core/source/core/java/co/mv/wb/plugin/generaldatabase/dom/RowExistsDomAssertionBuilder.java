@@ -27,6 +27,8 @@ import co.mv.wb.plugin.generaldatabase.RowExistsAssertion;
 import java.util.Optional;
 import java.util.UUID;
 
+import static co.mv.wb.framework.Util.coalesceWhiteSpaces;
+
 /**
  * An {@link AssertionBuilder} that builds a {@link RowExistsAssertion} from a DOM {@link org.w3c.dom.Element}.
  * 
@@ -60,6 +62,6 @@ public class RowExistsDomAssertionBuilder extends BaseDomAssertionBuilder implem
 			throw new PluginBuildException(messages);
 		}
 		
-		return new RowExistsAssertion(assertionId, description.get(), seqNum, sql.get());
+		return new RowExistsAssertion(assertionId, coalesceWhiteSpaces(description.get()), seqNum, sql.get());
 	}
 }

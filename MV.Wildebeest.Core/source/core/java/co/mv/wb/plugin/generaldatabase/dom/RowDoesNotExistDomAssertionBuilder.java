@@ -28,6 +28,8 @@ import co.mv.wb.plugin.generaldatabase.RowExistsAssertion;
 import java.util.Optional;
 import java.util.UUID;
 
+import static co.mv.wb.framework.Util.coalesceWhiteSpaces;
+
 /**
  * An {@link AssertionBuilder} that builds a {@link RowDoesNotExistAssertion} from a DOM {@link org.w3c.dom.Element}.
  * 
@@ -60,7 +62,8 @@ public class RowDoesNotExistDomAssertionBuilder extends BaseDomAssertionBuilder
 		{
 			throw new PluginBuildException(messages);
 		}
-		
-		return new RowDoesNotExistAssertion(assertionId, description.get(), seqNum, sql.get());
+
+
+		return new RowDoesNotExistAssertion(assertionId, coalesceWhiteSpaces(description.get()), seqNum, sql.get());
 	}
 }
