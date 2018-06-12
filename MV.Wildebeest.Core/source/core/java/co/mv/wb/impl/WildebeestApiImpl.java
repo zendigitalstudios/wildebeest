@@ -770,6 +770,7 @@ public class WildebeestApiImpl implements WildebeestApi
 		}
 	}
 
+<<<<<<< HEAD
 	private static void validateXml(
 		String xml,
 		String xsdResourceName) throws
@@ -796,6 +797,61 @@ public class WildebeestApiImpl implements WildebeestApi
 		{
 			// Validation failed
 			throw new XmlValidationException(e.getMessage());
+=======
+	/**
+	 * Retrives all migrations from plugin and throws an error if migrations refer to state that does not exist
+	 *
+	 * @param       resource             		Resource that is used to perform migration .
+	 * @since                                   4.0
+	 */
+	private static void validateMigrationStates(
+		  Resource resource) throws MigrationInvalidStateException
+	{
+		if (resource == null) { throw new IllegalArgumentException("resource"); }
+
+		List<Migration> migrations = resource.getMigrations();
+		List<State> states = resource.getStates();
+
+		for (Migration m: migrations
+			 )
+		{
+			boolean migrationToStateValid = false;
+			boolean migrationFromStateValid = false;
+
+			//check do states exist in migration, if they don't set them to true so they don't throw errors
+			if(!m.getFromStateId().isPresent())
+			{
+				migrationFromStateValid = true;
+			}
+			if(!m.getToStateId().isPresent())
+			{
+				migrationToStateValid = true;
+			}
+
+			for (State s: states
+				 )
+			{
+				if(m.getToStateId().equals(s.getStateId()) || m.getToStateId().equals(s.getLabel()))
+				{
+					migrationToStateValid = true;
+				}
+				if(m.getFromStateId().equals(s.getStateId()) || m.getFromStateId().equals(s.getLabel()))
+				{
+					migrationFromStateValid = true;
+				}
+
+				if(migrationFromStateValid == true && migrationToStateValid == true)
+				{
+					break;
+				}
+			}
+
+			if(migrationFromStateValid == false || migrationToStateValid == false)
+			{
+				throw  new MigrationInvalidStateException ("Some Migrations have invalid state, " +
+					  "please fix them before restarting migration") ;
+			}
+>>>>>>> MVWB-11 added new MigrationException and added function to validate migration states in WildebeestApiImpl
 		}
 	}
 }
