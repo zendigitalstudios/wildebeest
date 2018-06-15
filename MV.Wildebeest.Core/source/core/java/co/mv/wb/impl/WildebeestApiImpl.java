@@ -16,39 +16,13 @@
 
 package co.mv.wb.impl;
 
-import co.mv.wb.AssertionFailedException;
-import co.mv.wb.AssertionResponse;
-import co.mv.wb.AssertionResult;
-import co.mv.wb.AssertionType;
-import co.mv.wb.FileLoadException;
-import co.mv.wb.IndeterminateStateException;
-import co.mv.wb.Instance;
-import co.mv.wb.InvalidStateSpecifiedException;
-import co.mv.wb.JumpStateFailedException;
-import co.mv.wb.LoaderFault;
-import co.mv.wb.Migration;
-import co.mv.wb.MigrationFailedException;
-import co.mv.wb.MigrationPlugin;
-import co.mv.wb.MigrationType;
-import co.mv.wb.MigrationTypeInfo;
-import co.mv.wb.OutputFormatter;
-import co.mv.wb.PluginBuildException;
-import co.mv.wb.PluginManager;
-import co.mv.wb.Resource;
-import co.mv.wb.ResourcePlugin;
-import co.mv.wb.ResourceType;
-import co.mv.wb.State;
-import co.mv.wb.TargetNotSpecifiedException;
-import co.mv.wb.UnknownStateSpecifiedException;
-import co.mv.wb.Wildebeest;
-import co.mv.wb.WildebeestApi;
+import co.mv.wb.*;
 import co.mv.wb.framework.ArgumentNullException;
 import co.mv.wb.framework.Util;
 import co.mv.wb.plugin.base.ImmutableAssertionResult;
 import co.mv.wb.plugin.base.dom.DomInstanceLoader;
 import co.mv.wb.plugin.base.dom.DomPlugins;
 import co.mv.wb.plugin.base.dom.DomResourceLoader;
-import co.mv.wb.XmlValidationException;
 import org.xml.sax.*;
 
 import javax.xml.transform.Source;
@@ -770,6 +744,7 @@ public class WildebeestApiImpl implements WildebeestApi
 		}
 	}
 
+<<<<<<< HEAD
 	private static void validateXml(
 		String xml,
 		String xsdResourceName) throws
@@ -787,15 +762,124 @@ public class WildebeestApiImpl implements WildebeestApi
 			Validator validator = schema.newValidator();
 			Source source = new StreamSource(new StringReader(xml));
 			validator.validate(source);
-		}
-		catch (URISyntaxException | IOException e)
+		} catch (URISyntaxException | IOException e)
 		{
 			throw new RuntimeException(e);
-		}
-		catch (SAXException e)
+		} catch (SAXException e)
 		{
 			// Validation failed
 			throw new XmlValidationException(e.getMessage());
+=======
+	/**
+	 * Retrives all migrations from plugin and throws an error if migrations refer to state that does not exist
+	 *
+	 * @param       resource             		Resource that is used to perform migration .
+	 * @since                                   4.0
+	 */
+	private static void validateMigrationStates(
+		  Resource resource) throws MigrationInvalidStateException
+	{
+		if (resource == null) { throw new IllegalArgumentException("resource"); }
+
+		List<Migration> migrations = resource.getMigrations();
+		List<State> states = resource.getStates();
+
+		for (Migration m: migrations
+			 )
+		{
+			boolean migrationToStateValid = false;
+			boolean migrationFromStateValid = false;
+
+			//check do states exist in migration, if they don't set them to true so they don't throw errors
+			if(!m.getFromStateId().isPresent())
+			{
+				migrationFromStateValid = true;
+			}
+			if(!m.getToStateId().isPresent())
+			{
+				migrationToStateValid = true;
+			}
+
+			for (State s: states
+				 )
+			{
+				if(m.getToStateId().equals(s.getStateId()) || m.getToStateId().equals(s.getLabel()))
+				{
+					migrationToStateValid = true;
+				}
+				if(m.getFromStateId().equals(s.getStateId()) || m.getFromStateId().equals(s.getLabel()))
+				{
+					migrationFromStateValid = true;
+				}
+
+				if(migrationFromStateValid == true && migrationToStateValid == true)
+				{
+					break;
+				}
+			}
+
+			if(migrationFromStateValid == false || migrationToStateValid == false)
+			{
+				throw  new MigrationInvalidStateException ("Some Migrations have invalid state, " +
+					  "please fix them before restarting migration") ;
+			}
+>>>>>>> MVWB-11 added new MigrationException and added function to validate migration states in WildebeestApiImpl
+		}
+	}
+
+	/**
+	 * Retrives all migrations from plugin and throws an error if migrations refer to state that does not exist
+	 *
+	 * @param       resource             		Resource that is used to perform migration .
+	 * @since                                   4.0
+	 */
+	private static void validateMigrationStates(
+		  Resource resource) throws MigrationInvalidStateException
+	{
+		if (resource == null) { throw new IllegalArgumentException("resource"); }
+
+		List<Migration> migrations = resource.getMigrations();
+		List<State> states = resource.getStates();
+
+		for (Migration m: migrations
+			 )
+		{
+			boolean migrationToStateValid = false;
+			boolean migrationFromStateValid = false;
+
+			//check do states exist in migration, if they don't set them to true so they don't throw errors
+			if(!m.getFromStateId().isPresent())
+			{
+				migrationFromStateValid = true;
+			}
+			if(!m.getToStateId().isPresent())
+			{
+				migrationToStateValid = true;
+			}
+
+			for (State s: states
+				 )
+			{
+				if(m.getToStateId().equals(s.getStateId()) || m.getToStateId().equals(s.getLabel()))
+				{
+					migrationToStateValid = true;
+				}
+				if(m.getFromStateId().equals(s.getStateId()) || m.getFromStateId().equals(s.getLabel()))
+				{
+					migrationFromStateValid = true;
+				}
+
+				if(migrationFromStateValid == true && migrationToStateValid == true)
+				{
+					break;
+				}
+			}
+
+			if(migrationFromStateValid == false || migrationToStateValid == false)
+			{
+				throw  new MigrationInvalidStateException(m.getMigrationId(),"Migration " +m.getMigrationId().toString()+ " has invalid state, " +
+					  "please fix this before restarting migration") ;
+			}
 		}
 	}
 }
