@@ -69,7 +69,7 @@ public class Util
 	 */
 	public static boolean isUUID(String value)
 	{
-		final String UUIDmatcher = "[a-zA-Z0-9][a-zA-Z0-9\\-\\_ ]+[a-zA-Z0-9]";
+		final String UUIDmatcher = "[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}";
 		if (value.matches(UUIDmatcher))
 		{
 			return true;

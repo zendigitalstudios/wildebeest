@@ -45,6 +45,7 @@ import java.util.UUID;
 public class TagAssertion extends BaseAssertion
 {
 	private final String tag;
+	private int calledNTimes = 0;
 
 	public TagAssertion(
 		UUID assertionId,
@@ -67,6 +68,11 @@ public class TagAssertion extends BaseAssertion
 		return this.tag;
 	}
 
+	public int getCalledNTimes()
+	{
+		return this.calledNTimes;
+	}
+
 	@Override
 	public List<ResourceType> getApplicableTypes()
 	{
@@ -85,6 +91,7 @@ public class TagAssertion extends BaseAssertion
 			throw new IllegalArgumentException("instance must be a FakeInstance");
 		}
 
+		this.calledNTimes += 1;
 		AssertionResponse response;
 
 		if (this.getTag().equals(fake.getTag()))

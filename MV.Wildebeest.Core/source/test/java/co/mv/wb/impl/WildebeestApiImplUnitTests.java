@@ -16,12 +16,15 @@
 
 package co.mv.wb.impl;
 
+import co.mv.wb.Assertion;
 import co.mv.wb.AssertionFailedException;
 import co.mv.wb.IndeterminateStateException;
 import co.mv.wb.InvalidStateSpecifiedException;
 import co.mv.wb.MigrationFailedException;
 import co.mv.wb.MigrationInvalidStateException;
 import co.mv.wb.MigrationNotPossibleException;
+import co.mv.wb.MigrationPlugin;
+import co.mv.wb.State;
 import co.mv.wb.TargetNotSpecifiedException;
 import co.mv.wb.UnknownStateSpecifiedException;
 import co.mv.wb.Wildebeest;
@@ -30,6 +33,9 @@ import co.mv.wb.XmlValidationException;
 import co.mv.wb.fixture.TestContext_SimpleFakeResource;
 import co.mv.wb.fixture.TestContext_SimpleFakeResource_Builder;
 import co.mv.wb.framework.ArgumentNullException;
+import co.mv.wb.plugin.fake.FakeInstance;
+import co.mv.wb.plugin.fake.SetTagMigrationPlugin;
+import co.mv.wb.plugin.fake.TagAssertion;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,9 +43,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static co.mv.wb.Asserts.assertFakeInstance;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit tests for WildebeestApiImpl.
@@ -75,7 +85,7 @@ public class WildebeestApiImplUnitTests
 		TestContext_SimpleFakeResource context = TestContext_SimpleFakeResource_Builder
 			.create()
 			.withDefaultTarget("bar")
-			.get();
+			.getResourceWithNonExistantInitialState();
 
 		// Execute
 		wildebeestApi.migrate(
@@ -111,7 +121,7 @@ public class WildebeestApiImplUnitTests
 		TestContext_SimpleFakeResource context = TestContext_SimpleFakeResource_Builder
 			.create()
 			.withDefaultTarget("bar")
-			.get();
+			.getResourceWithNonExistantInitialState();
 
 		PrintStream output = System.out;
 
@@ -158,7 +168,7 @@ public class WildebeestApiImplUnitTests
 
 		TestContext_SimpleFakeResource context = TestContext_SimpleFakeResource_Builder
 			.create()
-			.get();
+			.getResourceWithNonExistantInitialState();
 
 		// Execute and Verify
 		wildebeestApi.migrate(
@@ -194,6 +204,54 @@ public class WildebeestApiImplUnitTests
 		TestContext_SimpleFakeResource context = TestContext_SimpleFakeResource_Builder
 			.create()
 			.withDefaultTarget("bar")
+			.getResourceWithNonExistantInitialState();
+
+		// Execute
+		wildebeestApi.migrate(
+			context.resource,
+			context.instance,
+			Optional.empty());
+
+		// Verify
+		assertFakeInstance(
+			"Bar",
+			context.instance,
+			"instance");
+	}
+
+	/**
+	 * A call to migrate from non existent with assertions that is expected to pass
+	 *
+	 * @since 4.0
+	 */
+	@Test
+	public void migrate_withAssertionsPriorToMigration_fromNonExistent_succeeds() throws
+		AssertionFailedException,
+		IndeterminateStateException,
+		InvalidStateSpecifiedException,
+		MigrationFailedException,
+		MigrationNotPossibleException,
+		TargetNotSpecifiedException,
+		UnknownStateSpecifiedException,
+		MigrationInvalidStateException
+	{
+		// Setup
+		PrintStream output = System.out;
+
+		TestContext_SimpleFakeResource context = TestContext_SimpleFakeResource_Builder
+			.create()
+			.withDefaultTarget("bar")
+			.getResourceWithNonExistantInitialState();
+
+		List<MigrationPlugin> migrationPlugins = new ArrayList<>();
+		migrationPlugins.add(new SetTagMigrationPlugin(context.resource));
+
+		WildebeestApi wildebeestApi = Wildebeest
+			.wildebeestApi(output)
+			.withCustomResourcePlugins(context.resourcePlugins)
+			.withPluginManager(new PluginManagerImpl(
+				Wildebeest.getPluginGroups(),
+				migrationPlugins))
 			.get();
 
 		// Execute
@@ -207,6 +265,125 @@ public class WildebeestApiImplUnitTests
 			"Bar",
 			context.instance,
 			"instance");
+	}
+
+	/**
+	 * A call to migrate with assertions prior to migration that is expected to pass
+	 *
+	 * @since 4.0
+	 */
+	@Test
+	public void migrate_withAssertionsPriorToMigration_withCurrentState_succeeds() throws
+		AssertionFailedException,
+		IndeterminateStateException,
+		InvalidStateSpecifiedException,
+		MigrationFailedException,
+		MigrationNotPossibleException,
+		TargetNotSpecifiedException,
+		UnknownStateSpecifiedException,
+		MigrationInvalidStateException
+	{
+		// Setup
+		PrintStream output = System.out;
+
+		TestContext_SimpleFakeResource context = TestContext_SimpleFakeResource_Builder
+			.create()
+			.withDefaultTarget("finalState")
+			.getResourceWithInitialState();
+
+		State initialState = context.resource.getStates().get(1);
+		Assertion initialStateAssertion1 = new TagAssertion(
+			UUID.randomUUID(),
+			0,
+			"initialState");
+		initialState.getAssertions().add(initialStateAssertion1);
+
+		List<MigrationPlugin> migrationPlugins = new ArrayList<>();
+		migrationPlugins.add(new SetTagMigrationPlugin(context.resource));
+
+		WildebeestApi wildebeestApi = Wildebeest
+			.wildebeestApi(output)
+			.withCustomResourcePlugins(context.resourcePlugins)
+			.withPluginManager(new PluginManagerImpl(
+				Wildebeest.getPluginGroups(),
+				migrationPlugins))
+			.get();
+
+		// Execute
+		wildebeestApi.migrate(
+			context.resource,
+			context.instance,
+			Optional.empty());
+
+		TagAssertion initialStateAssertionResult = (TagAssertion)context.resource.getStates().get(1).getAssertions().get(0);
+		assertEquals(initialStateAssertionResult.getCalledNTimes(), 1 );
+
+		// Verify
+		assertFakeInstance(
+			"finalState",
+			context.instance,
+			"instance");
+	}
+
+	/**
+	 * A call to migrate with assertions prior to migration that is expected to fail
+	 *
+	 * @since 4.0
+	 */
+	@Test
+	public void migrate_withAssertionsPriorToMigration_withCurrentState_fails() throws
+		IndeterminateStateException,
+		InvalidStateSpecifiedException,
+		MigrationFailedException,
+		MigrationNotPossibleException,
+		TargetNotSpecifiedException,
+		UnknownStateSpecifiedException,
+		MigrationInvalidStateException
+	{
+		// Setup
+		PrintStream output = System.out;
+
+		TestContext_SimpleFakeResource context = TestContext_SimpleFakeResource_Builder
+			.create()
+			.withDefaultTarget("finalState")
+			.getResourceWithInitialState();
+
+		State initialState = context.resource.getStates().get(1);
+		Assertion initialStateAssertion1 = new TagAssertion(
+			UUID.randomUUID(),
+			0,
+			"NewTag");
+		initialState.getAssertions().add(initialStateAssertion1);
+
+		List<MigrationPlugin> migrationPlugins = new ArrayList<>();
+		migrationPlugins.add(new SetTagMigrationPlugin(context.resource));
+
+		WildebeestApi wildebeestApi = Wildebeest
+			.wildebeestApi(output)
+			.withCustomResourcePlugins(context.resourcePlugins)
+			.withPluginManager(new PluginManagerImpl(
+				Wildebeest.getPluginGroups(),
+				migrationPlugins))
+			.get();
+		try
+		{
+			// Execute
+			wildebeestApi.migrate(
+				context.resource,
+				context.instance,
+				Optional.empty());
+			Assert.fail("The migration should not be successful. It is expected to throw an assertion failed exception.");
+		}
+		catch (AssertionFailedException asrFailedEx)
+		{
+			TagAssertion initialStateAssertionResult = (TagAssertion)context.resource.getStates().get(1).getAssertions().get(0);
+			assertEquals(initialStateAssertionResult.getCalledNTimes(), 1 );
+
+			FakeInstance fakeInstance = (FakeInstance)context.instance;
+			Assert.assertTrue(
+				"Assertion Failed Exception Encountered " + asrFailedEx,
+				fakeInstance.getTag() != "NewTag");
+		}
 	}
 
 	@Test

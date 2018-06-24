@@ -361,6 +361,15 @@ public class WildebeestApiImpl implements WildebeestApi
 
 		validateMigrationStates(resource);
 
+		if (currentState != null)
+		{
+			List<AssertionResult> initialAssertionResults = this.assertState(
+				resource,
+				instance);
+
+			WildebeestApiImpl.throwIfFailed(currentState.getStateId(), initialAssertionResults);
+		}
+
 		for (Migration migration : path)
 		{
 			String migrationTypeUri = migration.getClass().getAnnotation(MigrationType.class).uri();
@@ -708,7 +717,7 @@ public class WildebeestApiImpl implements WildebeestApi
 				.stream()
 				.filter(m ->
 					(!m.getFromState().isPresent() && fromState == null) ||
-						(m.getFromState().isPresent() && m.getFromState().equals(fromState)))
+						(m.getFromState().isPresent() && m.getFromState().get().equals(fromState.toString())))
 				.forEach(
 					migration ->
 					{
@@ -772,7 +781,7 @@ public class WildebeestApiImpl implements WildebeestApi
 			boolean migrationFromStateValid = false;
 
 			//check do states exist in migration, if they don't set them to true so they don't throw errors
-			if (!m.getToState().isPresent())
+			if (!m.getFromState().isPresent())
 			{
 				migrationFromStateValid = true;
 			}
@@ -784,11 +793,11 @@ public class WildebeestApiImpl implements WildebeestApi
 			for (State s : states
 				)
 			{
-				if (m.getToState().equals(s.getStateId()) || m.getToState().equals(s.getLabel()))
+				if (m.getToState().isPresent() && (m.getToState().get().equals(s.getStateId().toString()) || m.getToState().get().equals(s.getLabel())))
 				{
 					migrationToStateValid = true;
 				}
-				if (m.getToState().equals(s.getStateId()) || m.getToState().equals(s.getLabel()))
+				if (m.getFromState().isPresent() && (m.getFromState().get().equals(s.getStateId().toString()) || m.getFromState().get().equals(s.getLabel())))
 				{
 					migrationFromStateValid = true;
 				}

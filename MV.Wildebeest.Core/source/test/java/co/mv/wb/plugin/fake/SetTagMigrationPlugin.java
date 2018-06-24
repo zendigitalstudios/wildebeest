@@ -19,6 +19,7 @@ package co.mv.wb.plugin.fake;
 import co.mv.wb.Instance;
 import co.mv.wb.Migration;
 import co.mv.wb.MigrationPlugin;
+import co.mv.wb.MigrationPluginType;
 import co.mv.wb.ModelExtensions;
 import co.mv.wb.Resource;
 import co.mv.wb.State;
@@ -32,6 +33,7 @@ import java.io.PrintStream;
  *
  * @since 1.0
  */
+@MigrationPluginType(uri = "co.mv.wb.fake:SetTag")
 public class SetTagMigrationPlugin implements MigrationPlugin
 {
 	private final Resource resource;

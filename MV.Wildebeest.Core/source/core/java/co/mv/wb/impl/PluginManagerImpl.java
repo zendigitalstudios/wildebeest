@@ -113,7 +113,7 @@ public class PluginManagerImpl implements PluginManager
 	{
 		if (uri == null) throw new ArgumentNullException("uri");
 
-		if (migrationPlugins.containsKey(uri))
+		if (!migrationPlugins.containsKey(uri))
 		{
 			throw new RuntimeException(String.format("no MigrationPlugin found for uri: %s", uri));
 		}

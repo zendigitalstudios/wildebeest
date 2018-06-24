@@ -135,4 +135,13 @@ public class WildebeestApiBuilder
 
 		return wildebeestApi;
 	}
+
+	public WildebeestApiBuilder withCustomResourcePlugins(Map<ResourceType,ResourcePlugin> resourcePlugins)
+	{
+		return new WildebeestApiBuilder(
+			wildebeestApi,
+			resourcePlugins,
+			pluginManager);
+	}
+
 }

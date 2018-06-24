@@ -16,6 +16,7 @@
 
 package co.mv.wb.fixture;
 
+import co.mv.wb.Assertion;
 import co.mv.wb.Instance;
 import co.mv.wb.Resource;
 import co.mv.wb.ResourcePlugin;
@@ -28,6 +29,7 @@ import co.mv.wb.plugin.fake.FakeConstants;
 import co.mv.wb.plugin.fake.FakeInstance;
 import co.mv.wb.plugin.fake.FakeResourcePlugin;
 import co.mv.wb.plugin.fake.SetTagMigration;
+import co.mv.wb.plugin.fake.TagAssertion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +60,7 @@ public class TestContext_SimpleFakeResource_Builder
 		return this;
 	}
 
-	public TestContext_SimpleFakeResource get()
+	public TestContext_SimpleFakeResource getResourceWithNonExistantInitialState()
 	{
 		Map<ResourceType, ResourcePlugin> resourcePlugins = new HashMap<>();
 		resourcePlugins.put(FakeConstants.Fake, new FakeResourcePlugin());
@@ -106,6 +108,52 @@ public class TestContext_SimpleFakeResource_Builder
 			fooState,
 			barStateId,
 			barState,
+			instance);
+	}
+
+	public TestContext_SimpleFakeResource getResourceWithInitialState()
+	{
+		Map<ResourceType, ResourcePlugin> resourcePlugins = new HashMap<>();
+		resourcePlugins.put(FakeConstants.Fake, new FakeResourcePlugin());
+
+		Resource resource = new ResourceImpl(
+			UUID.randomUUID(),
+			FakeConstants.Fake,
+			"MyResource",
+			Optional.ofNullable(defaultTarget));
+
+		UUID finalStateId = UUID.randomUUID();
+		State finalState = new ImmutableState(
+			finalStateId,
+			Optional.of("finalState"));
+		resource.getStates().add(finalState);
+		Assertion finalAssertion1 = new TagAssertion(
+			UUID.randomUUID(),
+			0,
+			"finalState");
+		finalState.getAssertions().add(finalAssertion1);
+
+		UUID initialStateId = UUID.randomUUID();
+		State initialState = new ImmutableState(
+			initialStateId,
+			Optional.of("initialState"));
+		resource.getStates().add(initialState);
+
+		resource.getMigrations().add(new SetTagMigration(
+			UUID.randomUUID(),
+			Optional.of(initialStateId.toString()),
+			Optional.of(finalStateId.toString()),
+			"finalState"));
+
+		Instance instance = new FakeInstance(initialStateId);
+		((FakeInstance)instance).setTag("initialState");
+		return new TestContext_SimpleFakeResource(
+			resourcePlugins,
+			resource,
+			finalStateId,
+			finalState,
+			initialStateId,
+			initialState,
 			instance);
 	}
 }
