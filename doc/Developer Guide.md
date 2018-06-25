@@ -213,8 +213,8 @@ Apache Ant(TM) version 1.8.2 compiled on December 20 2010
     ```
     $ docker ps -a
     ```   
-       What this does is shows all docker containers, either currently running or stopped. If your container is stopped try
-       restarting it.
+     What this does is shows all docker containers, either currently running or stopped. If your container is stopped try
+     restarting it.
     ```
     $ docker restart name-of-container
     ```
