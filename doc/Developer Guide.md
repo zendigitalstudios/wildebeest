@@ -186,4 +186,112 @@ $ ant -version
 Apache Ant(TM) version 1.8.2 compiled on December 20 2010
 ```
 
-### 
+### Docker 
+
+
+
+
+:exclamation: Linux may require sudo in front of every docker command
+
+
+MYSQL Docker:
+
+1. First step is to pull mysql image from official docker repo 
+    ```    
+    $ docker pull mysql
+    ```
+2. Next you need to create container with image you have just pulled. Running container is as simple as 
+   "docker run -it name-of-image" but we need some additional parameters to setup base.
+    ```
+    $ docker run -it --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest -p 3306:3306 
+    ```
+3. Inspect that your docker image is up and running
+    ```   
+    $ docker ps
+    ```
+4. If you don't see your container try running 
+    ```
+    $ docker ps -a
+    ```   
+       What this does is shows all docker containers, either currently running or stopped. If your container is stopped try
+       restarting it.
+    ```
+    $ docker restart name-of-container
+    ```
+5. if everything is okay you should be able to execute following command
+    ```   
+    $ docker exec -it name-of-container mysql -uroot -p
+    ```
+
+SQLServer docker:
+
+
+1. First step is to pull sqlserver image from official docker repo 
+    ```
+    $ docker pull microsoft/mssql-server-linux:2017-latest
+    ```
+2. Next you need to create container with image you have just pulled. Running container is as simple as 
+   "docker run -it name-of-image" but we need some additional parameters to setup base.
+    ```
+    $ docker run -it -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=password' -p 1433:1433 --name sql1 -d microsoft/mssql-server-linux:2017-latest
+    ```
+3. Inspect that your docker image is up and running
+    ```   
+    $ docker ps
+    ```
+4. If you don't see your container try running 
+    ```   
+    $ docker ps -a
+    ```
+       What this does is shows all docker containers, either currently running or stopped. If your container is stopped try
+       restarting it.
+    ```
+    $ docker restart name-of-container
+    ```
+5. enter the docker with following command 
+    ```
+    $ docker exec -it name-of-container "bash"
+    ```
+6. connect to sqlcmd
+    ```
+    $ docker exec -it name-of-container "bash"
+    ```
+    once inside docker container:
+    ```
+    $ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourNewStrong!Passw0rd>'
+    ```
+
+Postgres docker 
+
+1. First step is to pull postgres image from official docker repo 
+    ```
+    $ docker pull postgres
+    ```
+2. Next you need to create container with image you have just pulled. Running container is as simple as 
+   "docker run -it name-of-image" but we need some additional parameters to setup base.
+    ```
+    $ docker run -it --name postgresserver -e POSTGRES_PASSWORD=my-secret-pw -d postgres
+    ```
+3. Inspect that your docker image is up and running
+    ```   
+    $ docker ps
+    ```
+4. If you don't see your container try running 
+    ```   
+    $ docker ps -a
+    ```
+   What this does is shows all docker containers, either currently running or stopped. If your container is stopped try
+   restarting it.
+    ```
+    $ docker restart name-of-container
+    ```
+Logs can be seen/found: 
+```
+RHEL, Oracle Linux          /var/log/messages
+Debian	                    /var/log/daemon.log
+Ubuntu 16.04+, CentOS	    Use the command journalctl -u docker.service
+Ubuntu 14.10-	            /var/log/upstart/docker.log
+macOS (Docker 18.01+)	    ~/Library/Containers/com.docker.docker/Data/vms/0/console-ring
+macOS (Docker <18.01)	    ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/console-ring
+Windows	                    AppData\Local 
+```
