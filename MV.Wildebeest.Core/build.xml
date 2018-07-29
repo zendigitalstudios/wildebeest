@@ -21,8 +21,8 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="MV.Wildebeest.Core" default="run">
 
 	<target
-		name="meta.project.properties"
-		description="
+			name="meta.project.properties"
+			description="
 			Derives additional project meta information from that loaded from
 			project.xml">
 
@@ -30,68 +30,68 @@
 			Load Raw Properties
 		-->
 
-		<property file="project.override.properties" />
-		<property file="../project.override.properties" />
-		<property file="../../project.override.properties" />
-		<xmlproperty file="project.xml" prefix="meta" />
-		<xmlproperty file="../project.xml" prefix="meta" />
-		<xmlproperty file="../../project.xml" prefix="meta" />
+		<property file="project.override.properties"/>
+		<property file="../project.override.properties"/>
+		<property file="../../project.override.properties"/>
+		<xmlproperty file="project.xml" prefix="meta"/>
+		<xmlproperty file="../project.xml" prefix="meta"/>
+		<xmlproperty file="../../project.xml" prefix="meta"/>
 
 		<!--
 			Derive the project's id
 		-->
 
 		<property
-			name="meta.project.identity.id"
-			value="${meta.project.identity.organization.id}.${meta.project.identity.name}" />
+				name="meta.project.identity.id"
+				value="${meta.project.identity.organization.id}.${meta.project.identity.name}"/>
 
 		<property
-			name="meta.project.version.full.dotted"
-			value="${meta.project.version.major}.${meta.project.version.minor}.${meta.project.version.revision}.${meta.project.version.build}" />
+				name="meta.project.version.full.dotted"
+				value="${meta.project.version.major}.${meta.project.version.minor}.${meta.project.version.revision}.${meta.project.version.build}"/>
 		<property
-			name="meta.project.version.full.underscored"
-			value="${meta.project.version.major}_${meta.project.version.minor}_${meta.project.version.revision}_${meta.project.version.build}" />
+				name="meta.project.version.full.underscored"
+				value="${meta.project.version.major}_${meta.project.version.minor}_${meta.project.version.revision}_${meta.project.version.build}"/>
 
 		<!--
 			Derive the projects version name
 		-->
 		<property name="meta.project.version.name"
-			value="${meta.project.identity.id}-${meta.project.version.full.dotted}" />
+				value="${meta.project.identity.id}-${meta.project.version.full.dotted}"/>
 
 	</target>
 
 	<target name="meta.project.properties:echo" depends="meta.project.properties">
 
-		<echo message="" />
+		<echo message=""/>
 
-		<echo message="Project Meta Information" />
-		<echo message="------------------------" />
-		<echo message="" />
-		<echo message="+ meta.project.type: ${meta.project.type}" />
-		<echo message="" />
+		<echo message="Project Meta Information"/>
+		<echo message="------------------------"/>
+		<echo message=""/>
+		<echo message="+ meta.project.type: ${meta.project.type}"/>
+		<echo message=""/>
 
-		<echo message="Identity:" />
-		<echo message="+ meta.project.identity.id: ${meta.project.identity.id}" />
-		<echo message="+ meta.project.identity.organization.id: ${meta.project.identity.organization.id}" />
-		<echo message="+ meta.project.identity.organization.name: ${meta.project.identity.organization.name}" />
-		<echo message="+ meta.project.identity.name: ${meta.project.identity.name}" />
-		<echo message="+ meta.project.identity.title: ${meta.project.identity.title}" />
-		<echo message="+ meta.project.identity.url: ${meta.project.identity.url}" />
-		<echo message="" />
+		<echo message="Identity:"/>
+		<echo message="+ meta.project.identity.id: ${meta.project.identity.id}"/>
+		<echo message="+ meta.project.identity.organization.id: ${meta.project.identity.organization.id}"/>
+		<echo message="+ meta.project.identity.organization.name: ${meta.project.identity.organization.name}"/>
+		<echo message="+ meta.project.identity.name: ${meta.project.identity.name}"/>
+		<echo message="+ meta.project.identity.title: ${meta.project.identity.title}"/>
+		<echo message="+ meta.project.identity.url: ${meta.project.identity.url}"/>
+		<echo message=""/>
 
-		<echo message="Copyright:" />
-		<echo message="+ meta.project.copyright.years: ${meta.project.copyright.years}" />
-		<echo message="+ meta.project.copyright.owner: ${meta.project.copyright.owner}" />
-		<echo message="" />
+		<echo message="Copyright:"/>
+		<echo message="+ meta.project.copyright.years: ${meta.project.copyright.years}"/>
+		<echo message="+ meta.project.copyright.owner: ${meta.project.copyright.owner}"/>
+		<echo message=""/>
 
-		<echo message="Version:" />
-		<echo message="+ meta.project.version.major: ${meta.project.version.major}" />
-		<echo message="+ meta.project.version.minor: ${meta.project.version.minor}" />
-		<echo message="+ meta.project.version.revision: ${meta.project.version.revision}" />
-		<echo message="+ meta.project.version.full.dotted: ${meta.project.version.full.dotted}" />
-		<echo message="+ meta.project.version.full.underscored: ${meta.project.version.full.underscored}" />
-		<echo message="+ meta.project.version.name: ${meta.project.version.name}" />
-		<echo message="" />
+		<echo message="Version:"/>
+		<echo message="+ meta.project.version.major: ${meta.project.version.major}"/>
+		<echo message="+ meta.project.version.minor: ${meta.project.version.minor}"/>
+		<echo message="+ meta.project.version.revision: ${meta.project.version.revision}"/>
+		<echo message="+ meta.project.version.full.dotted: ${meta.project.version.full.dotted}"/>
+		<echo message="+ meta.project.version.full.underscored: ${meta.project.version.full.underscored}"/>
+		<echo message="+ meta.project.version.name: ${meta.project.version.name}"/>
+		<echo message=""/>
 
 	</target>
 
@@ -100,34 +100,34 @@
 		<!--
 			Load raw properties
 		-->
-		<xmlproperty file="component.xml" prefix="meta" />
+		<xmlproperty file="component.xml" prefix="meta"/>
 
 		<property
-			name="meta.component.identity.id"
-			value="${meta.project.identity.id}.${meta.component.identity.name}" />
+				name="meta.component.identity.id"
+				value="${meta.project.identity.id}.${meta.component.identity.name}"/>
 		<property
-			name="meta.component.version.name"
-			value="${meta.component.identity.id}-${meta.project.version.full.dotted}" />
+				name="meta.component.version.name"
+				value="${meta.component.identity.id}-${meta.project.version.full.dotted}"/>
 
 	</target>
 
 	<target name="meta.component.properties:echo" depends="meta.component.properties">
 
-		<echo message="" />
+		<echo message=""/>
 
-		<echo message="Component Meta Information" />
-		<echo message="--------------------------" />
-		<echo message="" />
+		<echo message="Component Meta Information"/>
+		<echo message="--------------------------"/>
+		<echo message=""/>
 
-		<echo message="Identity:" />
-		<echo message="+ meta.component.identity.name: ${meta.component.identity.name}" />
-		<echo message="+ meta.component.identity.title: ${meta.component.identity.title}" />
-		<echo message="+ meta.component.identity.id: ${meta.component.identity.id}" />
-		<echo message="" />
+		<echo message="Identity:"/>
+		<echo message="+ meta.component.identity.name: ${meta.component.identity.name}"/>
+		<echo message="+ meta.component.identity.title: ${meta.component.identity.title}"/>
+		<echo message="+ meta.component.identity.id: ${meta.component.identity.id}"/>
+		<echo message=""/>
 
-		<echo message="Version:" />
-		<echo message="+ meta.component.version.name: ${meta.component.version.name}" />
-		<echo message="" />
+		<echo message="Version:"/>
+		<echo message="+ meta.component.version.name: ${meta.component.version.name}"/>
+		<echo message=""/>
 
 	</target>
 
@@ -137,9 +137,9 @@
 			  Meta Information Properties
 		  -->
 		<property name="meta.core.jar.filename"
-			value="${meta.component.identity.id}-${meta.project.version.full.dotted}.jar" />
+				value="${meta.component.identity.id}-${meta.project.version.full.dotted}.jar"/>
 		<property name="meta.test.jar.filename"
-			value="${meta.component.identity.id}-test-${meta.project.version.full.dotted}.jar" />
+				value="${meta.component.identity.id}-test-${meta.project.version.full.dotted}.jar"/>
 
 	</target>
 
@@ -148,73 +148,86 @@
 		<!--
 		  Build Resource Properties
 		-->
-		<property name="buildres.ivy.version" value="2.4.0" />
+		<property name="buildres.ivy.version" value="2.4.0"/>
 
 		<!--
 		  Source Properties
 		-->
-		<property name="source" value="source" />
+		<property name="source" value="source"/>
 
 		<!-- Core Sources -->
-		<property name="source.core" value="${source}/core" />
-		<property name="source.core.libcompile" value="${source.core}/libcompile" />
-		<property name="source.core.libcompileandrun" value="${source.core}/libcompileandrun" />
-		<property name="source.core.librun" value="${source.core}/librun" />
-		<property name="source.core.java" value="${source.core}/java" />
-		<property name="source.core.importclasses" value="${source.core}/importclasses" />
-		<property name="source.core.resources" value="${source.core}/resources" />
-		<property name="source.core.etc" value="${source.core}/etc" />
-		<property name="source.core.classtree" value="${source.core}/classtree" />
+		<property name="source.core" value="${source}/core"/>
+		<property name="source.core.libcompile" value="${source.core}/libcompile"/>
+		<property name="source.core.libcompileandrun" value="${source.core}/libcompileandrun"/>
+		<property name="source.core.librun" value="${source.core}/librun"/>
+		<property name="source.core.java" value="${source.core}/java"/>
+		<property name="source.core.importclasses" value="${source.core}/importclasses"/>
+		<property name="source.core.resources" value="${source.core}/resources"/>
+		<property name="source.core.etc" value="${source.core}/etc"/>
+		<property name="source.core.classtree" value="${source.core}/classtree"/>
 
 		<!-- Test Sources -->
-		<property name="source.test" value="${source}/test" />
-		<property name="source.test.libcompile" value="${source.test}/libcompile" />
-		<property name="source.test.libcompileandrun" value="${source.test}/libcompileandrun" />
-		<property name="source.test.librun" value="${source.test}/librun" />
-		<property name="source.test.java" value="${source.test}/java" />
-		<property name="source.test.importclasses" value="${source.test}/importclasses" />
-		<property name="source.test.resources" value="${source.test}/resources" />
-		<property name="source.test.etc" value="${source.test}/etc" />
-		<property name="source.test.classtree" value="${source.test}/classtree" />
+		<property name="source.test" value="${source}/test"/>
+		<property name="source.test.libcompile" value="${source.test}/libcompile"/>
+		<property name="source.test.libcompileandrun" value="${source.test}/libcompileandrun"/>
+		<property name="source.test.librun" value="${source.test}/librun"/>
+		<property name="source.test.java" value="${source.test}/java"/>
+		<property name="source.test.importclasses" value="${source.test}/importclasses"/>
+		<property name="source.test.resources" value="${source.test}/resources"/>
+		<property name="source.test.etc" value="${source.test}/etc"/>
+		<property name="source.test.classtree" value="${source.test}/classtree"/>
 
 		<!--
 				Target Properties
 			-->
-		<property name="target" value="target" />
+		<property name="target" value="target"/>
 
 		<!-- Core  Targets -->
-		<property name="target.core" value="${target}/core" />
-		<property name="target.core.libcompile" value="${target.core}/libcompile" />
-		<property name="target.core.librun" value="${target.core}/librun" />
-		<property name="target.core.java" value="${target.core}/java" />
-		<property name="target.core.classtree" value="${target.core}/classtree" />
-		<property name="target.core.importclasses" value="${target.core}/java" />
-		<property name="target.core.jar" value="${target.core}/jar" />
-		<property name="target.core.app" value="${target.core}/app" />
-		<property name="target.core.javadoc" value="${target.core}/javadoc" />
+		<property name="target.core" value="${target}/core"/>
+		<property name="target.core.libcompile" value="${target.core}/libcompile"/>
+		<property name="target.core.librun" value="${target.core}/librun"/>
+		<property name="target.core.java" value="${target.core}/java"/>
+		<property name="target.core.classtree" value="${target.core}/classtree"/>
+		<property name="target.core.importclasses" value="${target.core}/java"/>
+		<property name="target.core.jar" value="${target.core}/jar"/>
+		<property name="target.core.app" value="${target.core}/app"/>
+		<property name="target.core.javadoc" value="${target.core}/javadoc"/>
+		<property name="target.core.app.startscripts" value="${target.core.app}/startscripts"/>
 
 		<!-- Test Targets -->
-		<property name="target.test" value="${target}/test" />
-		<property name="target.test.libcompile" value="${target.test}/libcompile" />
-		<property name="target.test.librun" value="${target.test}/librun" />
-		<property name="target.test.classtree" value="${target.test}/classtree" />
-		<property name="target.test.jar" value="${target.test}/jar" />
-		<property name="target.test.app" value="${target.test}/app" />
-		<property name="target.test.report" value="${target.test}/report" />
-		<property name="target.test.javadoc" value="${target.test}/javadoc" />
+		<property name="target.test" value="${target}/test"/>
+		<property name="target.test.libcompile" value="${target.test}/libcompile"/>
+		<property name="target.test.librun" value="${target.test}/librun"/>
+		<property name="target.test.classtree" value="${target.test}/classtree"/>
+		<property name="target.test.jar" value="${target.test}/jar"/>
+		<property name="target.test.app" value="${target.test}/app"/>
+		<property name="target.test.report" value="${target.test}/report"/>
+		<property name="target.test.javadoc" value="${target.test}/javadoc"/>
 
 		<!-- Build Resource Targets -->
-		<property name="target.buildres" value="../.build" />
-		<property name="target.buildres.ivy" value="${target.buildres}/ivy" />
+		<property name="target.buildres" value="../.build"/>
+		<property name="target.buildres.ivy" value="${target.buildres}/ivy"/>
 
 		<!--
 		  Special Properties
 		-->
-		<property name="special.project.repo" value="../repo" />
+		<property name="special.project.repo" value="../repo"/>
 
 	</target>
 
+	<target name="release.properties" depends="structure.properties">
+		<!--
+		  Properties for installers
+		-->
+		<property name="openjdk" value="${special.project.repo}" ></property>
+		<property name="openjdk.jre" value="${openjdk}/jre"/>
 
+		<property name="target.core.app.jre.windows" value="${target.core}/app.jre.windows"/>
+		<property name="target.core.app.jre.linux" value="${target.core}/app.jre.linux"/>
+		<property name="target.core.app.jre.osx" value="${target.core}/app.jre.osx"/>
+
+
+	</target>
 	<!-- ===================================================================================================================
 
 		Core Targets
@@ -223,21 +236,21 @@
 
 	<target name="core.libcompile" depends="structure.properties,taskdef.ivy">
 
-		<mkdir dir="${target.core.libcompile}" />
+		<mkdir dir="${target.core.libcompile}"/>
 
 		<!-- Retrieve Ivy-managed dependencies -->
-		<ivy:retrieve conf="clc" pattern="${target.core.libcompile}/[artifact]-[revision].[ext]" />
+		<ivy:retrieve conf="clc" pattern="${target.core.libcompile}/[artifact]-[revision].[ext]"/>
 
 		<!-- Retrieve VCS-committed Dependencies -->
 		<copy todir="${target.core.libcompile}">
 			<fileset dir="${source.core.libcompile}">
-				<exclude name=".gitignore" />
+				<exclude name=".gitignore"/>
 			</fileset>
 		</copy>
 
 		<copy todir="${target.core.libcompile}">
 			<fileset dir="${source.core.libcompileandrun}">
-				<exclude name=".gitignore" />
+				<exclude name=".gitignore"/>
 			</fileset>
 		</copy>
 
@@ -245,154 +258,154 @@
 
 	<target name="core.librun" depends="structure.properties,taskdef.ivy">
 
-		<mkdir dir="${target.core.librun}" />
+		<mkdir dir="${target.core.librun}"/>
 
-		<ivy:retrieve conf="clr" pattern="${target.core.librun}/[artifact]-[revision].[ext]" />
+		<ivy:retrieve conf="clr" pattern="${target.core.librun}/[artifact]-[revision].[ext]"/>
 
 		<!-- Retrieve VCS-committed Dependencies -->
 		<copy todir="${target.core.librun}">
 			<fileset dir="${source.core.librun}">
-				<exclude name=".gitignore" />
+				<exclude name=".gitignore"/>
 			</fileset>
 		</copy>
 
 		<copy todir="${target.core.librun}">
 			<fileset dir="${source.core.libcompileandrun}">
-				<exclude name=".gitignore" />
+				<exclude name=".gitignore"/>
 			</fileset>
 		</copy>
 
 	</target>
 
 	<target
-		name="core.java"
-		description="
+			name="core.java"
+			description="
 			Prepares the Java sources for compilation"
-		depends="structure.properties">
+			depends="structure.properties">
 
-		<mkdir dir="${target.core.java}" />
+		<mkdir dir="${target.core.java}"/>
 
 		<!--
 			Import Java sources with filtering
 		-->
-		<filter token="meta.project.identity.name" value="${meta.project.identity.name}" />
-		<filter token="meta.project.identity.title" value="${meta.project.identity.title}" />
-		<filter token="meta.project.copyright.years" value="${meta.project.copyright.years}" />
-		<filter token="meta.project.copyright.owner" value="${meta.project.copyright.owner}" />
-		<filter token="meta.project.version.full.dotted" value="${meta.project.version.full.dotted}" />
+		<filter token="meta.project.identity.name" value="${meta.project.identity.name}"/>
+		<filter token="meta.project.identity.title" value="${meta.project.identity.title}"/>
+		<filter token="meta.project.copyright.years" value="${meta.project.copyright.years}"/>
+		<filter token="meta.project.copyright.owner" value="${meta.project.copyright.owner}"/>
+		<filter token="meta.project.version.full.dotted" value="${meta.project.version.full.dotted}"/>
 
 		<copy
-			todir="${target.core.java}"
-			filtering="true"
-			preservelastmodified="true">
+				todir="${target.core.java}"
+				filtering="true"
+				preservelastmodified="true">
 			<fileset dir="${source.core.java}">
-				<include name="**/*.java" />
+				<include name="**/*.java"/>
 			</fileset>
 		</copy>
 
 	</target>
 
 	<target
-		name="core.classtree"
-		description="
+			name="core.classtree"
+			description="
 			Create the target directory and compile the java code into classes."
-		depends="structure.properties,meta.component.properties,core.libcompile,core.java">
+			depends="structure.properties,meta.component.properties,core.libcompile,core.java">
 
-		<mkdir dir="${target.core.classtree}" />
+		<mkdir dir="${target.core.classtree}"/>
 
 		<!-- Compile the core java source code -->
 		<javac
-			srcdir="${target.core.java}"
-			destdir="${target.core.classtree}"
-			source="${meta.component.type.java.source}"
-			target="${meta.component.type.java.target}"
-			debug="true">
+				srcdir="${target.core.java}"
+				destdir="${target.core.classtree}"
+				source="${meta.component.type.java.source}"
+				target="${meta.component.type.java.target}"
+				debug="true">
 
 			<classpath>
-				<fileset dir="${target.core.libcompile}" includes="*.jar" />
+				<fileset dir="${target.core.libcompile}" includes="*.jar"/>
 			</classpath>
 
 		</javac>
 
 		<!-- Import the core.importclasses source -->
 		<copy
-			todir="${target.core.classtree}"
-			preservelastmodified="true">
+				todir="${target.core.classtree}"
+				preservelastmodified="true">
 			<fileset dir="${source.core.importclasses}">
-				<include name="**/*" />
-				<include name="**/*.*" />
-				<exclude name="**/*.swp" />
+				<include name="**/*"/>
+				<include name="**/*.*"/>
+				<exclude name="**/*.swp"/>
 			</fileset>
 		</copy>
 
 		<!-- Import and native2ascii the core.resources source -->
 		<native2ascii
-			encoding="UTF-8"
-			src="${source.core.resources}"
-			dest="${target.core.classtree}"
-			includes="**/resources*.utf8"
-			ext=".properties">
+				encoding="UTF-8"
+				src="${source.core.resources}"
+				dest="${target.core.classtree}"
+				includes="**/resources*.utf8"
+				ext=".properties">
 		</native2ascii>
 
 	</target>
 
 	<target
-		name="core.jar"
-		description="
+			name="core.jar"
+			description="
 			Builds a JAR file for the core.classtree artifact."
-		depends="structure.properties,meta.properties,core.classtree">
+			depends="structure.properties,meta.properties,core.classtree">
 
-		<mkdir dir="${target.core.jar}" />
+		<mkdir dir="${target.core.jar}"/>
 
 		<jar destfile="${target.core.jar}/${meta.core.jar.filename}"
-			basedir="${target.core.classtree}" />
+				basedir="${target.core.classtree}"/>
 
 	</target>
 
 	<target
-		name="core.jar:pub-project"
-		depends="structure.properties,meta.component.properties,core.jar">
+			name="core.jar:pub-project"
+			depends="structure.properties,meta.component.properties,core.jar">
 
 		<ivy:publish
-			pubrevision="${meta.project.version.full.dotted}"
-			status="release"
-			resolver="project"
-			overwrite="true">
+				pubrevision="${meta.project.version.full.dotted}"
+				status="release"
+				resolver="project"
+				overwrite="true">
 
-			<artifacts pattern="${target.core.jar}/[artifact]-[revision].[ext]" />
+			<artifacts pattern="${target.core.jar}/[artifact]-[revision].[ext]"/>
 
 		</ivy:publish>
 
 	</target>
 
 	<target
-		name="core.app"
-		description="
+			name="core.app"
+			description="
 			Assemble the core application."
-		depends="structure.properties,meta.project.properties,core.jar,core.librun">
+			depends="structure.properties,meta.project.properties,core.jar,core.librun">
 
-		<mkdir dir="${target.core.app}" />
-		<mkdir dir="${target.core.app}/classes" />
-		<mkdir dir="${target.core.app}/lib" />
+		<mkdir dir="${target.core.app}"/>
+		<mkdir dir="${target.core.app}/classes"/>
+		<mkdir dir="${target.core.app}/lib"/>
 
 		<!--
 			Import selected files from the core.etc source with filtering
 		-->
 		<filter
-			token="meta.project.version.full.dotted"
-			value="${meta.project.version.full.dotted}" />
+				token="meta.project.version.full.dotted"
+				value="${meta.project.version.full.dotted}"/>
 		<filter
-			token="meta.project.version.full.underscored"
-			value="${meta.project.version.full.underscored}" />
+				token="meta.project.version.full.underscored"
+				value="${meta.project.version.full.underscored}"/>
 		<copy
-			todir="${target.core.app}"
-			filtering="true"
-			preservelastmodified="true">
+				todir="${target.core.app}"
+				filtering="true"
+				preservelastmodified="true">
 			<fileset dir="${source.core.etc}">
-				<include name="**/*.htm" />
-				<include name="**/*.jsp" />
-				<include name="bin/wb" />
-				<include name="**/*.cmd" />
+				<include name="**/*.htm"/>
+				<include name="**/*.jsp"/>
+				<include name="bin/wb"/>
+				<include name="**/*.cmd"/>
 			</fileset>
 		</copy>
 
@@ -401,13 +414,13 @@
 		-->
 		<copy todir="${target.core.app}">
 			<fileset dir="${source.core.etc}">
-				<include name="**/*" />
-				<include name="**/*.*" />
-				<exclude name="**/*.swp" />
-				<exclude name="**/*.htm" />
-				<exclude name="**/*.jsp" />
-				<exclude name="bin/wb" />
-				<exclude name="**/*.cmd" />
+				<include name="**/*"/>
+				<include name="**/*.*"/>
+				<exclude name="**/*.swp"/>
+				<exclude name="**/*.htm"/>
+				<exclude name="**/*.jsp"/>
+				<exclude name="bin/wb"/>
+				<exclude name="**/*.cmd"/>
 			</fileset>
 		</copy>
 
@@ -415,12 +428,12 @@
 			Import the core.classtree source into the application's classes directory
 		-->
 		<copy
-			todir="${target.core.app}/classes"
-			preservelastmodified="true">
+				todir="${target.core.app}/classes"
+				preservelastmodified="true">
 			<fileset dir="${source.core.classtree}">
-				<include name="**/*" />
-				<include name="**/*.*" />
-				<exclude name="**/*.swp" />
+				<include name="**/*"/>
+				<include name="**/*.*"/>
+				<exclude name="**/*.swp"/>
 			</fileset>
 		</copy>
 
@@ -428,35 +441,43 @@
 			Import the core.jar and core.librun artifacts into the application's lib directory
 		-->
 		<copy
-			todir="${target.core.app}/lib"
-			preservelastmodified="true">
+				todir="${target.core.app}/lib"
+				preservelastmodified="true">
 
 			<!-- core.jar -->
-			<fileset file="${target.core.jar}/${meta.core.jar.filename}" />
+			<fileset file="${target.core.jar}/${meta.core.jar.filename}"/>
 
 			<!-- core.librun -->
-			<fileset dir="${target.core.librun}" includes="*.jar" />
+			<fileset dir="${target.core.librun}" includes="*.jar"/>
 
 		</copy>
 
 	</target>
 
+	<!--
+	 3 new targets
+
+	 core.app.jre.windows
+	              linux
+	              mac
+	 -->
+
 	<target
-		name="core.app:run"
-		description="Execute the application."
-		depends="structure.properties,meta.component.properties,core.app">
+			name="core.app:run"
+			description="Execute the application."
+			depends="structure.properties,meta.component.properties,core.app">
 
 		<java
-			classname="${meta.component.type.java.mainclass}"
-			fork="true">
+				classname="${meta.component.type.java.mainclass}"
+				fork="true">
 
 			<classpath>
-				<pathelement path="${target.core.app}/classes" />
-				<fileset dir="${target.core.app}/lib" includes="**/*.jar" />
+				<pathelement path="${target.core.app}/classes"/>
+				<fileset dir="${target.core.app}/lib" includes="**/*.jar"/>
 			</classpath>
 
 			<assertions>
-				<enable package="co.mv" />
+				<enable package="co.mv"/>
 			</assertions>
 
 		</java>
@@ -464,18 +485,18 @@
 	</target>
 
 	<target
-		name="core.javadoc"
-		description="Builds javadoc for the core system."
-		depends="structure.properties,meta.component.properties">
+			name="core.javadoc"
+			description="Builds javadoc for the core system."
+			depends="structure.properties,meta.component.properties">
 
-		<mkdir dir="${target.core.javadoc}" />
+		<mkdir dir="${target.core.javadoc}"/>
 
 		<javadoc
-			sourcepath="${source.core.java}"
-			destdir="${target.core.javadoc}"
-			source="${meta.component.type.java.source}">
+				sourcepath="${source.core.java}"
+				destdir="${target.core.javadoc}"
+				source="${meta.component.type.java.source}">
 
-			<fileset dir="${source.core.java}" includes="**/*.java" />
+			<fileset dir="${source.core.java}" includes="**/*.java"/>
 
 		</javadoc>
 
@@ -490,20 +511,20 @@
 
 	<target name="test.libcompile" depends="structure.properties,taskdef.ivy">
 
-		<mkdir dir="${target.test.libcompile}" />
+		<mkdir dir="${target.test.libcompile}"/>
 
-		<ivy:retrieve conf="tlc" pattern="${target.test.libcompile}/[artifact]-[revision].[ext]" />
+		<ivy:retrieve conf="tlc" pattern="${target.test.libcompile}/[artifact]-[revision].[ext]"/>
 
 		<!-- Retrieve VCS-committed Dependencies -->
 		<copy todir="${target.test.libcompile}">
 			<fileset dir="${source.test.libcompile}">
-				<exclude name=".gitignore" />
+				<exclude name=".gitignore"/>
 			</fileset>
 		</copy>
 
 		<copy todir="${target.test.libcompile}">
 			<fileset dir="${source.test.libcompileandrun}">
-				<exclude name=".gitignore" />
+				<exclude name=".gitignore"/>
 			</fileset>
 		</copy>
 
@@ -511,127 +532,127 @@
 
 	<target name="test.librun" depends="structure.properties,taskdef.ivy">
 
-		<mkdir dir="${target.test.librun}" />
+		<mkdir dir="${target.test.librun}"/>
 
-		<ivy:retrieve conf="tlc" pattern="${target.test.librun}/[artifact]-[revision].[ext]" />
+		<ivy:retrieve conf="tlc" pattern="${target.test.librun}/[artifact]-[revision].[ext]"/>
 
 		<!-- Retrieve VCS-committed Dependencies -->
 		<copy todir="${target.test.librun}">
 			<fileset dir="${source.test.librun}">
-				<exclude name=".gitignore" />
+				<exclude name=".gitignore"/>
 			</fileset>
 		</copy>
 
 		<copy todir="${target.test.librun}">
 			<fileset dir="${source.test.libcompileandrun}">
-				<exclude name=".gitignore" />
+				<exclude name=".gitignore"/>
 			</fileset>
 		</copy>
 
 	</target>
 
 	<target
-		name="test.classtree"
-		description="
+			name="test.classtree"
+			description="
 			Create the target directory and compile the java code into classes."
-		depends="structure.properties,test.libcompile,core.app">
+			depends="structure.properties,test.libcompile,core.app">
 
-		<mkdir dir="${target.test.classtree}" />
+		<mkdir dir="${target.test.classtree}"/>
 
 		<!-- Compile the test java source code -->
 		<javac
-			srcdir="${source.test.java}"
-			destdir="${target.test.classtree}"
-			source="${meta.component.type.java.source}"
-			target="${meta.component.type.java.target}"
-			debug="true">
+				srcdir="${source.test.java}"
+				destdir="${target.test.classtree}"
+				source="${meta.component.type.java.source}"
+				target="${meta.component.type.java.target}"
+				debug="true">
 
 			<classpath>
-				<pathelement path="${target.core.app}/classes" />
-				<fileset dir="${target.core.app}/lib" includes="**/*.jar" />
-				<fileset dir="${target.test.libcompile}" includes="*.jar" />
+				<pathelement path="${target.core.app}/classes"/>
+				<fileset dir="${target.core.app}/lib" includes="**/*.jar"/>
+				<fileset dir="${target.test.libcompile}" includes="*.jar"/>
 			</classpath>
 
 		</javac>
 
 		<!-- Import the test.importclasses source -->
 		<copy
-			todir="${target.test.classtree}"
-			preservelastmodified="true">
+				todir="${target.test.classtree}"
+				preservelastmodified="true">
 			<fileset dir="${source.test.importclasses}">
-				<include name="**/*" />
-				<include name="**/*.*" />
-				<exclude name="**/*.swp" />
+				<include name="**/*"/>
+				<include name="**/*.*"/>
+				<exclude name="**/*.swp"/>
 			</fileset>
 		</copy>
 
 		<!-- Import and native2ascii the test.resources source -->
 		<native2ascii
-			encoding="UTF-8"
-			src="${source.test.resources}"
-			dest="${target.test.classtree}"
-			includes="**/resources*.utf8"
-			ext=".properties">
+				encoding="UTF-8"
+				src="${source.test.resources}"
+				dest="${target.test.classtree}"
+				includes="**/resources*.utf8"
+				ext=".properties">
 		</native2ascii>
 
 	</target>
 
 	<target
-		name="test.jar"
-		description="Builds the JAR containing the test classes."
-		depends="structure.properties,meta.properties,test.classtree">
+			name="test.jar"
+			description="Builds the JAR containing the test classes."
+			depends="structure.properties,meta.properties,test.classtree">
 
-		<mkdir dir="${target.test.jar}" />
+		<mkdir dir="${target.test.jar}"/>
 
 		<jar destfile="${target.test.jar}/${meta.test.jar.filename}"
-			basedir="${target.test.classtree}" />
+				basedir="${target.test.classtree}"/>
 
 	</target>
 
 	<target
-		name="test.app"
-		description="Assemble the test application."
-		depends="structure.properties,test.jar,test.librun">
+			name="test.app"
+			description="Assemble the test application."
+			depends="structure.properties,test.jar,test.librun">
 
-		<mkdir dir="${target.test.app}" />
-		<mkdir dir="${target.test.app}/classes" />
-		<mkdir dir="${target.test.app}/lib" />
+		<mkdir dir="${target.test.app}"/>
+		<mkdir dir="${target.test.app}/classes"/>
+		<mkdir dir="${target.test.app}/lib"/>
 
 		<!-- Import the test.etc source -->
 		<copy
-			todir="${target.test.app}"
-			preservelastmodified="true">
+				todir="${target.test.app}"
+				preservelastmodified="true">
 			<fileset dir="${source.test.etc}">
-				<include name="**/*" />
-				<include name="**/*.*" />
-				<exclude name="**/*.swp" />
+				<include name="**/*"/>
+				<include name="**/*.*"/>
+				<exclude name="**/*.swp"/>
 			</fileset>
 		</copy>
 
 		<!-- Import the test.classtree source -->
 		<copy
-			todir="${target.test.app}/classes"
-			preservelastmodified="true">
+				todir="${target.test.app}/classes"
+				preservelastmodified="true">
 			<fileset dir="${source.test.classtree}">
-				<include name="**/*" />
-				<include name="**/*.*" />
-				<exclude name="**/*.swp" />
+				<include name="**/*"/>
+				<include name="**/*.*"/>
+				<exclude name="**/*.swp"/>
 			</fileset>
 		</copy>
 
 		<!-- Import the test.jar artifact -->
 		<copy
-			todir="${target.test.app}/lib"
-			file="${target.test.jar}/${meta.test.jar.filename}"
-			preservelastmodified="true" />
+				todir="${target.test.app}/lib"
+				file="${target.test.jar}/${meta.test.jar.filename}"
+				preservelastmodified="true"/>
 
 		<!-- Import the test.lib source -->
 		<copy
-			todir="${target.test.app}/lib"
-			preservelastmodified="true">
-			<fileset dir="${target.core.jar}" includes="*.jar" />
-			<fileset dir="${target.core.librun}" includes="*.jar" />
-			<fileset dir="${target.test.librun}" includes="*.jar" />
+				todir="${target.test.app}/lib"
+				preservelastmodified="true">
+			<fileset dir="${target.core.jar}" includes="*.jar"/>
+			<fileset dir="${target.core.librun}" includes="*.jar"/>
+			<fileset dir="${target.test.librun}" includes="*.jar"/>
 		</copy>
 
 	</target>
@@ -640,113 +661,113 @@
 	</target>
 
 	<target
-		name="test.app:run_junit"
-		description="
+			name="test.app:run_junit"
+			description="
 			Executes the assembled test system."
-		depends="core.app,test.app">
+			depends="core.app,test.app">
 
 		<path id="test.app.run.path">
-			<pathelement path="${target.core.app}/classes" />
-			<pathelement path="${target.test.app}/classes" />
-			<fileset dir="${target.core.app}/lib" includes="**/*.jar" />
-			<fileset dir="${target.test.app}/lib" includes="**/*.jar" />
+			<pathelement path="${target.core.app}/classes"/>
+			<pathelement path="${target.test.app}/classes"/>
+			<fileset dir="${target.core.app}/lib" includes="**/*.jar"/>
+			<fileset dir="${target.test.app}/lib" includes="**/*.jar"/>
 		</path>
 
-		<mkdir dir="${target.test.report}/data" />
+		<mkdir dir="${target.test.report}/data"/>
 
-		<echo message="mySql.hostName: ${mySql.hostName}" />
-		<echo message="mySql.port: ${mySql.port}" />
-		<echo message="mySql.username: ${mySql.username}" />
-		<echo message="mySql.password: ${mySql.password}" />
+		<echo message="mySql.hostName: ${mySql.hostName}"/>
+		<echo message="mySql.port: ${mySql.port}"/>
+		<echo message="mySql.username: ${mySql.username}"/>
+		<echo message="mySql.password: ${mySql.password}"/>
 
 		<junit fork="no"
-			showoutput="true"
-			printsummary="true">
+				showoutput="true"
+				printsummary="true">
 
 			<classpath>
-				<path refid="test.app.run.path" />
+				<path refid="test.app.run.path"/>
 			</classpath>
 
-			<formatter type="xml" />
+			<formatter type="xml"/>
 
 			<batchtest todir="${target.test.report}/data">
-				<fileset dir="${source.test.java}" casesensitive="yes" includes="**/*Tests.java" />
+				<fileset dir="${source.test.java}" casesensitive="yes" includes="**/*Tests.java"/>
 			</batchtest>
 
 		</junit>
 
 		<junitreport
-			todir="${target.test.report}">
+				todir="${target.test.report}">
 
-			<fileset dir="${target.test.report}/data" includes="*.xml" />
+			<fileset dir="${target.test.report}/data" includes="*.xml"/>
 
 			<report
-				format="noframes"
-				todir="${target.test.report}" />
+					format="noframes"
+					todir="${target.test.report}"/>
 
 		</junitreport>
 
 	</target>
 
 	<target
-		name="test.app:run_testng"
-		description="
+			name="test.app:run_testng"
+			description="
 			Executes the assembled test system."
-		depends="core.app,test.app">
+			depends="core.app,test.app">
 
 		<path id="test.app.run.path">
-			<pathelement path="${target.core.app}/classes" />
-			<pathelement path="${target.test.app}/classes" />
-			<fileset dir="${target.core.app}/lib" includes="**/*.jar" />
-			<fileset dir="${target.test.app}/lib" includes="**/*.jar" />
+			<pathelement path="${target.core.app}/classes"/>
+			<pathelement path="${target.test.app}/classes"/>
+			<fileset dir="${target.core.app}/lib" includes="**/*.jar"/>
+			<fileset dir="${target.test.app}/lib" includes="**/*.jar"/>
 		</path>
 
 		<taskdef
-			name="testng"
-			classname="com.beust.testng.TestNGAntTask"
-			classpathref="test.app.run.path">
+				name="testng"
+				classname="com.beust.testng.TestNGAntTask"
+				classpathref="test.app.run.path">
 		</taskdef>
 
-		<mkdir dir="${target.test.report}/data" />
+		<mkdir dir="${target.test.report}/data"/>
 
 		<testng
-			fork="yes"
-			sourceDir="${source.test.java}"
-			outputDir="${target.test.report}/data"
-			classpathref="test.app.run.path">
+				fork="yes"
+				sourceDir="${source.test.java}"
+				outputDir="${target.test.report}/data"
+				classpathref="test.app.run.path">
 
-			<fileset dir="${target.test.app}" includes="testng.xml" />
+			<fileset dir="${target.test.app}" includes="testng.xml"/>
 
-			<jvmarg value="-ea" />
+			<jvmarg value="-ea"/>
 
 		</testng>
 
 		<junitreport todir="${target.test.report}">
 
-			<fileset dir="${target.test.report}/data" includes="*.xml" />
+			<fileset dir="${target.test.report}/data" includes="*.xml"/>
 
 			<report
-				styledir="${ant.home}/x17_sft_helium_basic/junit"
-				format="noframes"
-				todir="${target.test.report}" />
+					styledir="${ant.home}/x17_sft_helium_basic/junit"
+					format="noframes"
+					todir="${target.test.report}"/>
 
 		</junitreport>
 
 	</target>
 
 	<target
-		name="test.javadoc"
-		description="Builds javadoc for the test system."
-		depends="structure.properties,meta.component.properties">
+			name="test.javadoc"
+			description="Builds javadoc for the test system."
+			depends="structure.properties,meta.component.properties">
 
-		<mkdir dir="${target.test.javadoc}" />
+		<mkdir dir="${target.test.javadoc}"/>
 
 		<javadoc
-			sourcepath="${source.test.java}"
-			destdir="${target.test.javadoc}"
-			source="${meta.component.type.java.source}">
+				sourcepath="${source.test.java}"
+				destdir="${target.test.javadoc}"
+				source="${meta.component.type.java.source}">
 
-			<fileset dir="${source.test.java}" includes="**/*.java" />
+			<fileset dir="${source.test.java}" includes="**/*.java"/>
 
 		</javadoc>
 
@@ -760,24 +781,24 @@
 	==================================================================================================================== -->
 
 	<target
-		name="deps"
-		description="Retrieve all dependencies."
-		depends="core.libcompile,core.librun,test.libcompile,test.librun">
+			name="deps"
+			description="Retrieve all dependencies."
+			depends="core.libcompile,core.librun,test.libcompile,test.librun">
 
 	</target>
 
 	<target
-		name="clean"
-		description="Blow away all targets, leaving only sources."
-		depends="structure.properties">
+			name="clean"
+			description="Blow away all targets, leaving only sources."
+			depends="structure.properties">
 
-		<delete dir="${target}" />
+		<delete dir="${target}"/>
 
 	</target>
 
 	<target name="cleanrepo" depends="structure.properties">
 
-		<delete dir="${special.project.repo}" />
+		<delete dir="${special.project.repo}"/>
 
 	</target>
 
@@ -798,23 +819,23 @@
 	<target name="structure.properties.buildres.ivy.home" depends="structure.properties">
 
 		<condition property="buildres.ivy.home" value="${env.IVY_HOME}">
-			<isset property="env.IVY_HOME" />
+			<isset property="env.IVY_HOME"/>
 		</condition>
 
 		<condition property="buildres.ivy.global" value="true">
-			<isset property="env.IVY_HOME" />
+			<isset property="env.IVY_HOME"/>
 		</condition>
 
-		<property name="buildres.ivy.home" value="${target.buildres.ivy}" />
+		<property name="buildres.ivy.home" value="${target.buildres.ivy}"/>
 		<condition property="buildres.ivy.local" value="true">
 			<not>
-				<isset property="env.IVY_HOME" />
+				<isset property="env.IVY_HOME"/>
 			</not>
 		</condition>
 
-		<echo message="buildres.ivy.home: ${buildres.ivy.home}" />
-		<echo message="buildres.ivy.global: ${buildres.ivy.global}" />
-		<echo message="buildres.ivy.local: ${buildres.ivy.local}" />
+		<echo message="buildres.ivy.home: ${buildres.ivy.home}"/>
+		<echo message="buildres.ivy.global: ${buildres.ivy.global}"/>
+		<echo message="buildres.ivy.local: ${buildres.ivy.local}"/>
 
 	</target>
 
@@ -823,25 +844,25 @@
 	  be skipped if there's no need to download.
 	-->
 	<target name="buildres.ivy.exists" depends="structure.properties">
-		<available property="buildres.ivy.exists" file="${target.buildres.ivy}/lib/ivy-${buildres.ivy.version}.jar" />
+		<available property="buildres.ivy.exists" file="${target.buildres.ivy}/lib/ivy-${buildres.ivy.version}.jar"/>
 	</target>
 
 	<!--
 	  Downloads the Ivy JAR to the local project-level deployment location.
 	-->
 	<target name="buildres.ivy"
-		depends="
+			depends="
       structure.properties,
       structure.properties.buildres.ivy.home,
       buildres.ivy.exists"
-		if="buildres.ivy.local"
-		unless="buildres.ivy.exists">
+			if="buildres.ivy.local"
+			unless="buildres.ivy.exists">
 
-		<mkdir dir="${target.buildres.ivy}/lib" />
+		<mkdir dir="${target.buildres.ivy}/lib"/>
 
 		<get
-			src="http://repo2.maven.org/maven2/org/apache/ivy/ivy/${buildres.ivy.version}/ivy-${buildres.ivy.version}.jar"
-			dest="${target.buildres.ivy}/lib/ivy-${buildres.ivy.version}.jar" usetimestamp="true" />
+				src="http://repo2.maven.org/maven2/org/apache/ivy/ivy/${buildres.ivy.version}/ivy-${buildres.ivy.version}.jar"
+				dest="${target.buildres.ivy}/lib/ivy-${buildres.ivy.version}.jar" usetimestamp="true"/>
 
 	</target>
 
@@ -852,13 +873,125 @@
 	<target name="taskdef.ivy" depends="buildres.ivy">
 
 		<path id="taskdef.ivy.path">
-			<fileset dir="${buildres.ivy.home}/lib" includes="*.jar" />
+			<fileset dir="${buildres.ivy.home}/lib" includes="*.jar"/>
 		</path>
 
 		<taskdef
-			resource="org/apache/ivy/ant/antlib.xml"
-			uri="antlib:org.apache.ivy.ant" classpathref="taskdef.ivy.path" />
+				resource="org/apache/ivy/ant/antlib.xml"
+				uri="antlib:org.apache.ivy.ant" classpathref="taskdef.ivy.path"/>
 
 	</target>
 
+
+	<!-- ===================================================================================================================
+
+		Installers
+
+	==================================================================================================================== -->
+	<target name="core:release"
+			depends="core.app, download.jdk, unzip.windows, unzip.linux, unzip.osx"
+			description="Create release for windows, linux and osx">
+
+		<copy todir="${target.core.app.jre.windows}">
+			<fileset dir="${target.core.app}/"/>
+		</copy>
+
+		<copy todir="${target.core.app.jre.linux}">
+			<fileset dir="${target.core.app}/"/>
+		</copy>
+
+		<copy todir="${target.core.app.jre.osx}">
+			<fileset dir="${target.core.app}/"/>
+		</copy>
+	</target>
+
+
+	<!--  DOWNLOAD   ================================================================================================-->
+	<target name="download.jdk" depends="release.properties">
+		<echo>
+			Downloading OpenJDK for Windows
+		</echo>
+		<mkdir dir="${openjdk.jre}"/>
+		<get src="https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_windows-x64_bin.tar.gz"
+				dest="${openjdk.jre}/windows-jdk.tar.gz"
+				verbose="true"
+				usetimestamp="true"/>
+		<echo>
+			DONE
+		</echo>
+
+		<echo>
+			Downloading OpenJDK for Linux
+		</echo>
+		<mkdir dir="${openjdk.jre}"/>
+		<get src="https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_linux-x64_bin.tar.gz"
+				dest="${openjdk.jre}/linux-jdk.tar.gz"
+				verbose="true"
+				usetimestamp="true"/>
+		<echo>
+			DONE
+		</echo>
+
+		<echo>
+			Downloading OpenJDK for Mac
+		</echo>
+		<mkdir dir="${openjdk.jre}"/>
+		<get src="https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_osx-x64_bin.tar.gz"
+				dest="${openjdk.jre}/osx-jdk.tar.gz"
+				verbose="true"
+				usetimestamp="true"/>
+		<echo>
+			DONE
+		</echo>
+	</target>
+
+	<!--  UNZIP  ====================================================================================================-->
+
+	<target name="check.windows.unzip">
+		<available file="${target.core.app.jre.windows}" type="dir" property="windows.unpacked.present"/>
+	</target>
+
+	<target name="check.linux.unzip">
+		<available file="${target.core.app.jre.linux}" type="dir" property="linux.unpacked.present"/>
+	</target>
+
+	<target name="check.osx.unzip">
+		<available file="${target.core.app.jre.osx}" type="dir" property="osx.unpacked.present"/>
+	</target>
+
+	<target name="unzip.windows" unless="windows.unpacked.present" depends="check.windows.unzip">
+		<echo>
+			unziping windows jdk
+		</echo>
+		<mkdir dir="${target.core.app.jre.windows}"/>
+		<untar src="${openjdk.jre}/windows-jdk.tar.gz" dest="${target.core.app.jre.windows}/" compression="gzip"/>
+	</target>
+
+	<target name="unzip.linux" unless="linux.unpacked.present" depends="check.linux.unzip">
+		<echo>
+			unziping linux jdk
+		</echo>
+		<mkdir dir="${target.core.app.jre.linux}"/>
+		<untar src="${openjdk.jre}/linux-jdk.tar.gz" dest="${target.core.app.jre.linux}/" compression="gzip"/>
+	</target>
+
+	<target name="unzip.osx" unless="osx.unpacked.present" depends="check.osx.unzip">
+		<echo>
+			unziping osx jdk
+		</echo>
+		<mkdir dir="${target.core.app.jre.osx}"/>
+		<untar src="${openjdk.jre}/osx-jdk.tar.gz" dest="${target.core.app.jre.osx}/" compression="gzip"/>
+	</target>
+
+
+	<target name="clean:release" depends="release.properties" description="Clean directories created by core:release">
+		<delete dir="${target.core.app.jre.windows}" failonerror="false"/>
+		<delete dir="${target.core.app.jre.linux}" failonerror="false"/>
+		<delete dir="${target.core.app.jre.osx}" failonerror="false"/>
+	</target>
+
+
+	<target name="ivy.clean.cache" description="Cleans whole Ivy cache folder">
+		<delete dir="${user.home}/.ivy/cache"/>
+	</target>
 </project>

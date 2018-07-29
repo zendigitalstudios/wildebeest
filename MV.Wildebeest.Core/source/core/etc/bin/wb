@@ -16,23 +16,18 @@
 
 #!/bin/sh
 
-# Wildebeest
-WB_CLASSPATH=$WB_HOME/lib/MV.Wildebeest.Api-@meta.project.version.full.dotted@.jar
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/MV.Wildebeest.Core-@meta.project.version.full.dotted@.jar
+if [ -z $WB_HOME ]; then
+    echo "Please set WB_HOME before using this script"
+    exit
+fi
 
-# Logging
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/slf4j-api-1.7.5.jar
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/slf4j-nop-1.7.5.jar
-
-# Plugin Support
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/mysql-connector-java-5.1.22.jar
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/postgresql-9.3-1100-jdbc41.jar
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/sqljdbc4.jar
-
-# Other Libraries
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/guava-20.0.jar
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/javassist-3.21.0-GA.jar
-WB_CLASSPATH=$WB_CLASSPATH:$WB_HOME/lib/reflections-0.9.11.jar
-
-java -classpath $WB_CLASSPATH co.mv.wb.cli.WildebeestCommand $*
-
+if [ `which java` ]; then
+    java -classpath "$WB_HOME/lib/*" co.mv.wb.cli.WildebeestCommand "$@"
+elif [ -f ../jdk-10.0.2/bin/java ]; then
+       chmod +x ../jdk-10.0.2/bin/java
+       ../jdk-10.0.2/bin/java -classpath "$WB_HOME/lib/*" co.mv.wb.cli.WildebeestCommand  "$@"
+elif  [ -f ../jdk-10.0.2.jdk/Contents/Home/bin/java ]; then
+      ../jdk-10.0.2.jdk/Contents/Home/bin/java -classpath "$WB_HOME/lib/*" co.mv.wb.cli.WildebeestCommand  "$@"
+else
+    echo "Please install Java before using this tool"
+fi
